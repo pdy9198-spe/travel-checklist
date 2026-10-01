@@ -6,14 +6,14 @@
 <title>여행 준비 체크리스트</title>
 <style>
   :root{
-    --sun:#F2A81D;        /* 포인트 노랑 */
-    --sun-deep:#A55F04;   /* 흰 글씨를 얹어도 읽히는 진한 호박색 */
-    --sun-mid:#B86B06;
-    --ink:#3A2E1C;
-    --ink-soft:#7B6A50;
-    --ink-faint:#B3A489;
-    --line:#F0E6CF;
-    --card:#FFFFFF;
+    --sakura:#E88FA9;        /* 벚꽃 분홍 */
+    --sakura-mid:#B85E76;    /* 체크박스처럼 흰 표시가 올라가는 곳 */
+    --sakura-deep:#973F59;   /* 흰 글씨를 얹어도 읽히는 진한 자두색 */
+    --ink:#35435A;           /* 안개 너머 먼 산 같은 청회색 */
+    --ink-soft:#66748B;
+    --ink-faint:#A2ABBB;
+    --line:#EBDFE4;
+    --card:rgba(255,255,255,.88);   /* 안개처럼 살짝 비치는 흰 카드 */
     --radius:16px;
   }
 
@@ -23,7 +23,8 @@
   body{
     margin:0;
     min-height:100vh;
-    background:linear-gradient(160deg,#FFF7D4 0%,#FFEFB8 45%,#FFE6C6 100%);
+    /* 위: 안개 낀 하늘 → 가운데: 뿌연 도시 → 아래: 벚꽃 */
+    background:linear-gradient(180deg,#BFCFE6 0%,#D6DFEC 16%,#E8E7E6 38%,#F4E0E2 62%,#F6C9D6 84%,#F3B4C6 100%);
     background-attachment:fixed;
     font-family:system-ui,-apple-system,"Segoe UI","Malgun Gothic","맑은 고딕",sans-serif;
     color:var(--ink);
@@ -33,15 +34,18 @@
   button,input,select{font-family:inherit;font-size:inherit;color:inherit;}
   button{cursor:pointer;border:none;background:none;}
 
-  .app{max-width:640px;margin:0 auto;padding:36px 16px 80px;}
+  .app{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:34px 16px 230px;}
 
   /* 헤더 */
-  h1{margin:0 0 14px;font-size:25px;letter-spacing:-.5px;}
+  .eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:4px;
+    color:var(--sakura-deep);opacity:.75;}
+  h1{margin:0 0 14px;font-size:clamp(22px,5.6vw,27px);letter-spacing:-.5px;word-break:keep-all;
+    text-shadow:0 1px 0 rgba(255,255,255,.65);}
   .progress-label{margin:0 0 8px;font-size:14px;color:var(--ink-soft);font-weight:600;}
-  .progress-track{height:8px;border-radius:999px;background:#fff;
-    box-shadow:inset 0 1px 3px rgba(150,105,20,.18);overflow:hidden;}
+  .progress-track{height:8px;border-radius:999px;background:rgba(255,255,255,.72);
+    box-shadow:inset 0 1px 3px rgba(110,125,160,.16);overflow:hidden;}
   .progress-fill{height:100%;width:0%;border-radius:999px;
-    background:linear-gradient(90deg,var(--sun),#FFCB3D);
+    background:linear-gradient(90deg,var(--sakura-mid),#F3B4C5);
     transition:width .4s cubic-bezier(.22,1,.36,1);}
 
   /* 입력 */
@@ -49,26 +53,26 @@
     display:flex;gap:8px;flex-wrap:wrap;
     margin:22px 0 20px;padding:14px;
     background:var(--card);border-radius:var(--radius);
-    box-shadow:0 6px 20px rgba(150,105,20,.12);
+    box-shadow:0 6px 20px rgba(110,125,160,.15);
   }
   #textInput{
     flex:1 1 200px;min-width:0;padding:12px 14px;border-radius:12px;
-    border:2px solid var(--line);background:#FFFCF2;font-size:15px;
+    border:2px solid var(--line);background:#FFFAFB;font-size:15px;
     transition:border-color .15s,background .15s;
   }
-  #textInput:focus{outline:none;border-color:var(--sun);background:#fff;}
+  #textInput:focus{outline:none;border-color:var(--sakura);background:#fff;}
   #textInput::placeholder{color:var(--ink-faint);}
 
   #categorySelect{
     flex:0 0 auto;padding:12px 10px;border-radius:12px;
-    border:2px solid var(--line);background:#FFFCF2;font-size:14px;font-weight:600;
+    border:2px solid var(--line);background:#FFFAFB;font-size:14px;font-weight:600;
   }
-  #categorySelect:focus{outline:none;border-color:var(--sun);}
+  #categorySelect:focus{outline:none;border-color:var(--sakura);}
 
   .btn-add{
     flex:0 0 auto;padding:12px 20px;border-radius:12px;font-weight:800;color:#fff;
-    background:linear-gradient(135deg,var(--sun-mid),var(--sun-deep));
-    box-shadow:0 5px 14px rgba(165,95,4,.28);
+    background:linear-gradient(135deg,var(--sakura-mid),var(--sakura-deep));
+    box-shadow:0 5px 14px rgba(156,74,98,.26);
     transition:filter .12s,transform .12s;
   }
   .btn-add:hover{filter:brightness(1.07);}
@@ -76,7 +80,7 @@
 
   /* 목록 */
   .group{margin-bottom:16px;padding:6px 14px 8px;background:var(--card);
-    border-radius:var(--radius);box-shadow:0 4px 14px rgba(150,105,20,.10);}
+    border-radius:var(--radius);box-shadow:0 4px 14px rgba(110,125,160,.13);}
   .group-head{display:flex;align-items:center;justify-content:space-between;
     padding:12px 2px 8px;border-bottom:1px solid var(--line);}
   .group-name{font-size:14px;font-weight:800;letter-spacing:-.2px;}
@@ -87,7 +91,7 @@
   li:last-child{border-bottom:none;}
 
   li input[type="checkbox"]{
-    flex:0 0 auto;width:20px;height:20px;accent-color:var(--sun-mid);cursor:pointer;margin:0;
+    flex:0 0 auto;width:20px;height:20px;accent-color:var(--sakura-mid);cursor:pointer;margin:0;
   }
   .item-text{flex:1;min-width:0;font-size:15px;word-break:break-word;}
   li.done .item-text{color:var(--ink-faint);text-decoration:line-through;}
@@ -101,7 +105,7 @@
 
   /* 빈 상태 */
   .empty{text-align:center;padding:44px 16px;background:var(--card);
-    border-radius:var(--radius);box-shadow:0 4px 14px rgba(150,105,20,.10);}
+    border-radius:var(--radius);box-shadow:0 4px 14px rgba(110,125,160,.13);}
   .empty .face{font-size:38px;}
   .empty p{margin:12px 0 4px;font-weight:700;}
   .empty .sub{font-size:13px;color:var(--ink-soft);}
@@ -113,15 +117,327 @@
     color:var(--ink-soft);background:#fff;border:1.5px solid var(--line);
     transition:border-color .12s,color .12s;
   }
-  .btn-ghost:hover:not(:disabled){border-color:var(--sun);color:var(--sun-deep);}
+  .btn-ghost:hover:not(:disabled){border-color:var(--sakura);color:var(--sakura-deep);}
   .btn-ghost:disabled{opacity:.45;cursor:default;}
   .btn-ghost.danger:hover:not(:disabled){border-color:#F2A9AB;color:#E5484D;}
   .empty .btn-ghost{margin-top:16px;}
+
+  /* 사진 속 안개 느낌 + 화지(和紙) 질감 — 카드가 배경을 살짝 머금는다 */
+  .composer,.group,.empty{
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.72);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
+    background-blend-mode:multiply;
+  }
+
+  /* 카테고리 이름 앞 작은 꽃 */
+  .group-name::before{content:"❀";margin-right:6px;font-size:11px;
+    color:var(--sakura);opacity:.9;vertical-align:1px;}
+
+  /* ======================================================
+     배경 풍경 — 사진의 안개 산 / 흩날리는 꽃잎 / 벚꽃 가지
+     화면에 고정되어 있고, 클릭은 전부 통과시킨다
+     ====================================================== */
+  /* 겹치는 순서: 산·안개(0) → 벚꽃 가지(1) → 내용 카드(2) → 흩날리는 꽃잎(3)
+     가지는 카드 뒤로 보내 글자를 가리지 않게 하고, 꽃잎만 화면 앞으로 지나가게 한다 */
+  .scenery{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+  .scenery.front{z-index:1;}
+  .scenery.petals-layer{z-index:3;}
+
+  /* 겹겹이 멀어지는 산 능선 — 아래쪽은 안개에 녹아 사라지게 */
+  .mountains{position:absolute;top:4vh;left:0;width:100%;height:33vh;min-height:200px;
+    filter:blur(1.4px);
+    -webkit-mask-image:linear-gradient(180deg,#000 48%,rgba(0,0,0,.35) 78%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 48%,rgba(0,0,0,.35) 78%,transparent 100%);}
+
+  /* 산 아래 깔린 도시 — 랜드마크가 보이도록 흐림은 약하게 */
+  .city{position:absolute;top:15vh;left:0;width:100%;height:26vh;min-height:190px;
+    filter:blur(.9px);opacity:.95;
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.55) 0%,#000 28%,#000 90%,rgba(0,0,0,.6) 100%);
+    mask-image:linear-gradient(180deg,rgba(0,0,0,.55) 0%,#000 28%,#000 90%,rgba(0,0,0,.6) 100%);}
+
+  /* 하늘 쪽 햇무리 + 화면 가장자리 어둑함 */
+  .glow{position:absolute;top:-16vh;left:50%;transform:translateX(-50%);
+    width:120vw;height:56vh;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,252,246,.85),rgba(255,250,244,.3) 60%,transparent 100%);}
+  .vignette{position:absolute;inset:0;
+    background:radial-gradient(120% 80% at 50% 45%,transparent 55%,rgba(96,86,110,.16) 100%);}
+
+  /* 여백에 세로로 흐르는 글씨 (넓은 화면에서만) */
+  .vtext{position:absolute;writing-mode:vertical-rl;font-size:13px;letter-spacing:7px;
+    font-weight:700;color:rgba(53,67,90,.3);display:none;}
+  .vtext.left{top:16vh;left:calc(50% - 400px);}
+  .vtext.right{bottom:22vh;right:calc(50% - 392px);color:rgba(151,63,89,.32);}
+  @media (min-width:1000px){.vtext{display:block;}}
+
+  /* 아래쪽 청해파(青海波) 물결 무늬 */
+  .seigaiha{position:absolute;bottom:0;left:0;width:100%;height:150px;opacity:.5;
+    background-image:
+      repeating-radial-gradient(circle at 50% 100%,
+        transparent 0 15px, rgba(255,255,255,.55) 15px 17px, transparent 17px 30px),
+      repeating-radial-gradient(circle at 0% 100%,
+        transparent 0 15px, rgba(255,255,255,.4) 15px 17px, transparent 17px 30px);
+    background-size:60px 30px;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 70%);
+    mask-image:linear-gradient(180deg,transparent,#000 70%);}
+
+  /* 위쪽에서 들어오는 앞가지 */
+  .branch-top{position:absolute;top:-4px;left:0;width:100%;height:190px;opacity:.95;}
+
+  /* 아래쪽에 뿌옇게 번지는 꽃무리 (초점 밖) */
+  .canopy{position:absolute;bottom:-24px;left:0;width:100%;height:240px;
+    filter:blur(7px);opacity:.9;}
+
+  /* 산을 감싸는 옅은 안개 띠 */
+  .haze{position:absolute;left:0;width:100%;}
+  .haze.top{top:0;height:46vh;
+    background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.18) 55%,transparent 100%);}
+  .haze.mid{top:41vh;height:22vh;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.4) 55%,rgba(255,255,255,.12));
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);}
+
+  /* 화면 아래를 덮는 벚꽃 가지 (카드 뒤에 깔려 글자를 가리지 않는다) */
+  .branch{position:absolute;bottom:-6px;left:0;width:100%;height:210px;}
+
+  /* 흩날리는 꽃잎 */
+  .petal-fall{position:absolute;top:-12vh;will-change:transform;
+    animation:fall linear infinite;}
+  .petal{display:block;width:13px;height:13px;
+    background:radial-gradient(circle at 32% 28%,#FFF4F7 0%,#F8C6D4 55%,#EBA0B6 100%);
+    border-radius:14px 2px 14px 2px;
+    box-shadow:0 1px 2px rgba(150,80,105,.18);
+    animation:sway ease-in-out infinite alternate;}
+  /* 사진처럼 초점이 나간 앞쪽 꽃잎 / 멀리 작게 떠가는 뒤쪽 꽃잎 */
+  .petal-fall.near .petal{width:22px;height:22px;filter:blur(2.2px);}
+  .petal-fall.far .petal{width:8px;height:8px;filter:blur(.4px);}
+  @keyframes fall{to{transform:translateY(122vh);}}
+  @keyframes sway{
+    from{transform:translateX(-20px) rotate(-30deg);}
+    to{transform:translateX(20px) rotate(40deg);}
+  }
+
+  /* 도시를 지나는 신칸센 — 지나간 뒤 한참 쉬었다가 다시 온다 */
+  .train{animation:train-run 34s linear infinite;}
+  @keyframes train-run{
+    0%{transform:translateX(-300px);}
+    32%{transform:translateX(1300px);}
+    100%{transform:translateX(1300px);}
+  }
+
+  /* 강 위를 천천히 흐르는 유람선 */
+  .boat{animation:boat-drift 95s linear infinite;}
+  @keyframes boat-drift{
+    from{transform:translateX(-90px);}
+    to{transform:translateX(1260px);}
+  }
+
+  /* 하늘을 가로지르는 새 떼 */
+  .flock{animation:flock-fly 60s linear infinite;}
+  @keyframes flock-fly{
+    0%{transform:translate(-200px,30px);}
+    50%{transform:translate(520px,-10px);}
+    100%{transform:translate(1300px,20px);}
+  }
+  .bird{transform-box:fill-box;transform-origin:center;
+    animation:flap 1.1s ease-in-out infinite alternate;}
+  .bird:nth-child(2){animation-duration:.9s;animation-delay:-.3s;}
+  .bird:nth-child(3){animation-duration:1.3s;animation-delay:-.6s;}
+  .bird:nth-child(4){animation-duration:1s;animation-delay:-.15s;}
+  .bird:nth-child(5){animation-duration:1.2s;animation-delay:-.45s;}
+  @keyframes flap{from{transform:scaleY(1);}to{transform:scaleY(.4);}}
+
+  /* 움직임을 불편해하는 설정이면 전부 멈춘다 */
+  @media (prefers-reduced-motion: reduce){
+    .petal-fall,.petal,.train,.boat,.flock,.bird{animation:none;}
+    .train{transform:translateX(420px);}
+    .flock{transform:translate(430px,10px);}
+  }
+
+  /* 화면이 짧으면 산과 가지를 줄여 내용이 가려지지 않게 */
+  @media (max-height:640px){
+    .mountains{top:6vh;height:28vh;min-height:150px;}
+    .branch{height:150px;}
+    .app{padding-bottom:170px;}
+  }
 </style>
 </head>
 <body>
 
+<!-- ===== 배경: 안개 낀 산 능선 ===== -->
+<div class="scenery" aria-hidden="true">
+  <div class="haze top"></div>
+  <svg class="mountains" viewBox="0 0 1200 300" preserveAspectRatio="none">
+    <!-- 멀수록 옅게 — 능선이 안개에 잠겨 보이도록 부드러운 곡선으로 -->
+    <path fill="#9DB2D0" opacity=".34"
+      d="M0,300 V168 C 80,150 130,116 200,134 C 264,150 310,108 386,124 C 450,138 505,104 580,120
+         C 660,138 708,100 790,118 C 866,134 918,106 1000,124 C 1080,142 1140,116 1200,132 V300 Z"/>
+    <path fill="#8AA1C4" opacity=".36"
+      d="M0,300 V212 C 90,192 150,160 240,184 C 320,206 380,170 470,192 C 556,212 610,178 700,198
+         C 790,218 850,186 940,206 C 1030,226 1120,198 1200,214 V300 Z"/>
+    <path fill="#7C93B8" opacity=".3"
+      d="M0,300 V252 C 110,236 190,214 300,244 C 400,270 470,238 580,256 C 690,274 760,246 880,262
+         C 990,276 1090,254 1200,268 V300 Z"/>
+
+    <!-- 하늘을 가로지르는 새 떼 -->
+    <g class="flock" fill="none" stroke="#6F8099" stroke-width="2.2" stroke-linecap="round" opacity=".55">
+      <path class="bird" d="M0 60 C 5 55 8 55 12 59 C 16 55 19 55 24 60"/>
+      <path class="bird" d="M34 48 C 38 44 41 44 44 47 C 47 44 50 44 54 48"/>
+      <path class="bird" d="M62 66 C 66 62 69 62 72 65 C 75 62 78 62 82 66"/>
+      <path class="bird" d="M92 52 C 96 48 99 48 102 51 C 105 48 108 48 112 52"/>
+      <path class="bird" d="M120 72 C 124 68 127 68 130 71 C 133 68 136 68 140 72"/>
+    </g>
+
+    <!-- 후지산 (가운데 빈 하늘에 홀로) -->
+    <g>
+      <path fill="#8FA6C6" opacity=".4"
+        d="M492,234 C 536,198 564,150 600,102 C 636,150 664,198 708,234 Z"/>
+      <path fill="#F6F9FD" opacity=".62"
+        d="M575,133 C 585,123 592,111 600,102 C 608,111 615,123 625,133
+           C 618,129 614,136 608,131 C 602,137 598,127 591,134 C 585,129 581,136 575,133 Z"/>
+    </g>
+  </svg>
+  <!-- 산 아래 깔린 도시 (바닥선 y=190) -->
+  <svg class="city" viewBox="0 0 1200 190" preserveAspectRatio="none">
+    <defs>
+      <radialGradient id="gold">
+        <stop offset="0%" stop-color="#F0D389" stop-opacity=".95"/>
+        <stop offset="60%" stop-color="#E8C87A" stop-opacity=".35"/>
+        <stop offset="100%" stop-color="#E8C87A" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- 평범한 빌딩들 (뒤쪽, 옅게) -->
+    <g fill="#AEBED4">
+      <rect x="0" y="126" width="46" height="64"/><rect x="50" y="142" width="30" height="48"/>
+      <rect x="84" y="118" width="30" height="72"/><rect x="186" y="134" width="44" height="56"/>
+      <rect x="284" y="140" width="34" height="50"/><rect x="322" y="122" width="26" height="68"/>
+      <rect x="352" y="146" width="48" height="44"/><rect x="404" y="128" width="30" height="62"/>
+      <rect x="438" y="150" width="40" height="40"/><rect x="480" y="136" width="26" height="54"/>
+      <rect x="576" y="140" width="44" height="50"/><rect x="624" y="120" width="26" height="70"/>
+      <rect x="654" y="148" width="38" height="42"/><rect x="696" y="132" width="30" height="58"/>
+      <rect x="730" y="152" width="46" height="38"/><rect x="884" y="146" width="34" height="44"/>
+      <rect x="1044" y="138" width="30" height="52"/><rect x="1078" y="152" width="44" height="38"/>
+      <rect x="1126" y="130" width="74" height="60"/>
+    </g>
+
+    <!-- 랜드마크 (앞쪽, 진하게) -->
+    <g fill="#8C9FBD">
+      <!-- 오층탑 -->
+      <g>
+        <rect x="136" y="168" width="28" height="22"/>
+        <path d="M116 170 C 132 156 168 156 184 170 Z"/>
+        <rect x="140" y="152" width="20" height="16"/>
+        <path d="M120 154 C 134 142 166 142 180 154 Z"/>
+        <rect x="142" y="136" width="16" height="16"/>
+        <path d="M124 138 C 136 127 164 127 176 138 Z"/>
+        <rect x="143" y="122" width="14" height="14"/>
+        <path d="M128 124 C 138 114 162 114 172 124 Z"/>
+        <rect x="144" y="110" width="12" height="12"/>
+        <path d="M132 112 C 140 103 160 103 168 112 Z"/>
+        <rect x="149" y="86" width="2" height="24"/>
+        <circle cx="150" cy="84" r="3"/>
+      </g>
+
+      <!-- 도쿄타워 -->
+      <g>
+        <path d="M222 190 L240 96 L260 96 L278 190 Z"/>
+        <rect x="234" y="112" width="32" height="7"/>
+        <path d="M240 96 L245 54 L255 54 L260 96 Z"/>
+        <rect x="242" y="64" width="16" height="5"/>
+        <rect x="249" y="24" width="2.5" height="30"/>
+      </g>
+
+      <!-- 오사카성 -->
+      <g>
+        <path d="M786 190 L800 150 L860 150 L874 190 Z"/>
+        <rect x="802" y="138" width="56" height="12"/>
+        <path d="M788 141 C 812 123 848 123 872 141 Z"/>
+        <rect x="810" y="124" width="40" height="12"/>
+        <path d="M796 127 C 816 112 844 112 864 127 Z"/>
+        <rect x="816" y="112" width="28" height="10"/>
+        <path d="M804 115 C 820 103 840 103 856 115 Z"/>
+        <rect x="822" y="101" width="16" height="9"/>
+        <path d="M810 104 C 822 94 838 94 850 104 Z"/>
+        <rect x="829" y="93" width="2" height="8"/>
+      </g>
+
+      <!-- 토리이 -->
+      <g>
+        <rect x="944" y="158" width="5" height="32"/>
+        <rect x="971" y="158" width="5" height="32"/>
+        <path d="M934 156 C 950 149 970 149 986 156 L986 162 C 970 155 950 155 934 162 Z"/>
+        <rect x="942" y="167" width="36" height="5"/>
+      </g>
+
+      <!-- 스카이트리 -->
+      <g>
+        <path d="M1004 190 Q1016 118 1016 84 L1026 84 Q1026 118 1038 190 Z"/>
+        <rect x="1008" y="88" width="26" height="7"/>
+        <rect x="1012" y="64" width="18" height="6"/>
+        <rect x="1020" y="18" width="2.5" height="46"/>
+      </g>
+    </g>
+
+    <!-- 신칸센 고가와 지나가는 열차 -->
+    <g fill="#93A6C2">
+      <rect x="0" y="150" width="1200" height="5"/>
+      <g opacity=".75">
+        <rect x="40" y="155" width="6" height="35"/><rect x="200" y="155" width="6" height="35"/>
+        <rect x="360" y="155" width="6" height="35"/><rect x="520" y="155" width="6" height="35"/>
+        <rect x="680" y="155" width="6" height="35"/><rect x="840" y="155" width="6" height="35"/>
+        <rect x="1000" y="155" width="6" height="35"/><rect x="1160" y="155" width="6" height="35"/>
+      </g>
+    </g>
+    <g class="train" fill="#6F87AC">
+      <path d="M0 150 L0 140 C 26 140 44 132 76 130 L250 130 L250 150 Z"/>
+      <g fill="#C9D6E6" opacity=".55">
+        <rect x="86" y="135" width="26" height="5"/><rect x="120" y="135" width="26" height="5"/>
+        <rect x="154" y="135" width="26" height="5"/><rect x="188" y="135" width="26" height="5"/>
+      </g>
+    </g>
+
+    <!-- 강과 유람선 -->
+    <g>
+      <rect x="0" y="168" width="1200" height="22" fill="#A8BDD8" opacity=".92"/>
+      <g fill="#E6EFF9" opacity=".8">
+        <rect x="60" y="174" width="120" height="2"/><rect x="300" y="180" width="90" height="2"/>
+        <rect x="560" y="173" width="140" height="2"/><rect x="820" y="181" width="110" height="2"/>
+        <rect x="1020" y="176" width="130" height="2"/>
+      </g>
+      <g class="boat" fill="#63789B">
+        <path d="M0 177 L84 177 L75 188 L9 188 Z"/>
+        <rect x="14" y="166" width="54" height="11"/>
+        <rect x="26" y="157" width="30" height="9"/>
+        <rect x="40" y="147" width="2.5" height="10"/>
+        <path d="M43 147 L58 151 L43 155 Z"/>
+      </g>
+    </g>
+
+    <!-- 금각사 (연못가에 금빛으로) -->
+    <g>
+      <ellipse cx="433" cy="146" rx="58" ry="40" fill="url(#gold)" opacity=".75"/>
+      <g fill="#A79579">
+        <rect x="400" y="166" width="66" height="6"/>
+        <rect x="406" y="150" width="54" height="16"/>
+        <path d="M390 153 C 418 137 448 137 476 153 Z"/>
+        <rect x="412" y="136" width="42" height="14"/>
+        <path d="M396 139 C 420 126 446 126 470 139 Z"/>
+        <rect x="420" y="124" width="26" height="12"/>
+        <path d="M406 127 C 422 115 444 115 460 127 Z"/>
+        <path d="M429 118 C 431 112 435 112 437 116 L433 122 Z"/>
+      </g>
+    </g>
+  </svg>
+  <div class="haze mid"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
+  <span class="vtext left">春の旅支度</span>
+  <span class="vtext right">さくら前線</span>
+</div>
+
 <div class="app">
+  <p class="eyebrow">SAKURA · 旅じたく</p>
   <h1>✈️ 여행 준비 체크리스트</h1>
   <p class="progress-label" id="progressLabel"></p>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -148,6 +464,138 @@
     <button type="button" class="btn-ghost danger" id="clearDone">완료 항목 비우기</button>
   </div>
 </div>
+
+<!-- ===== 앞쪽 풍경: 벚꽃 가지 + 흩날리는 꽃잎 ===== -->
+<div class="scenery petals-layer" aria-hidden="true"><div id="petals"></div></div>
+
+<div class="scenery front" aria-hidden="true">
+  <div class="seigaiha"></div>
+
+  <!-- 위쪽 모서리에서 들어오는 가지 -->
+  <svg class="branch-top" viewBox="0 0 1200 190" preserveAspectRatio="xMidYMin slice">
+    <!-- 제목을 가리지 않도록 오른쪽 위에서만 들어온다 -->
+    <g stroke="#6B4B47" fill="none" stroke-linecap="round" opacity=".8">
+      <path d="M1230 -8 C 1120 40 1010 26 920 72 S 790 116 700 104" stroke-width="7"/>
+      <path d="M1040 34 C 1058 62 1052 86 1030 104" stroke-width="3.5"/>
+      <path d="M880 84 C 896 112 892 134 870 152" stroke-width="3"/>
+      <path d="M770 98 C 764 126 744 142 716 148" stroke-width="2.6"/>
+    </g>
+    <g fill="#FDECF1" opacity=".95">
+      <use href="#bl" x="1180" y="14"/>
+      <use href="#bl" x="1120" y="40" transform="scale(1.3) translate(-259 -10)"/>
+      <use href="#bl" x="1030" y="104"/>
+      <use href="#bl" x="1052" y="58" transform="scale(1.15) translate(-137 -8)"/>
+      <use href="#bl" x="920" y="72" transform="scale(1.25) translate(-184 -15)"/>
+      <use href="#bl" x="870" y="152"/>
+      <use href="#bl" x="800" y="96" transform="scale(1.1) translate(-73 -9)"/>
+      <use href="#bl" x="716" y="148"/>
+      <use href="#bl" x="700" y="104" transform="scale(1.35) translate(-182 -28)"/>
+    </g>
+  </svg>
+
+  <!-- 초점 밖에서 번지는 꽃무리 -->
+  <svg class="canopy" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice">
+    <g fill="#FBD8E2">
+      <use href="#bl" x="30" y="210" transform="scale(2.6) translate(-19 -81)"/>
+      <use href="#bl" x="130" y="228" transform="scale(2.2) translate(-71 -104)"/>
+      <use href="#bl" x="215" y="200" transform="scale(2.9) translate(-141 -131)"/>
+      <use href="#bl" x="320" y="232" transform="scale(2.1) translate(-168 -123)"/>
+      <use href="#bl" x="430" y="206" transform="scale(2.7) translate(-272 -130)"/>
+      <use href="#bl" x="540" y="236" transform="scale(2) translate(-270 -118)"/>
+      <use href="#bl" x="640" y="212" transform="scale(2.5) translate(-384 -127)"/>
+      <use href="#bl" x="750" y="230" transform="scale(2.2) translate(-409 -125)"/>
+      <use href="#bl" x="860" y="204" transform="scale(2.8) translate(-553 -131)"/>
+      <use href="#bl" x="965" y="234" transform="scale(2) translate(-482 -117)"/>
+      <use href="#bl" x="1070" y="210" transform="scale(2.6) translate(-659 -129)"/>
+      <use href="#bl" x="1170" y="230" transform="scale(2.3) translate(-661 -130)"/>
+    </g>
+  </svg>
+
+  <svg class="branch" viewBox="0 0 1200 210" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <g id="bl">
+        <circle cx="0" cy="-9.5" r="6.4"/>
+        <circle cx="9" cy="-2.9" r="6.4"/>
+        <circle cx="5.6" cy="7.7" r="6.4"/>
+        <circle cx="-5.6" cy="7.7" r="6.4"/>
+        <circle cx="-9" cy="-2.9" r="6.4"/>
+        <circle cx="0" cy="0" r="2.4" fill="#DE93A8"/>
+      </g>
+    </defs>
+
+    <!-- 가지 -->
+    <g stroke="#6B4B47" fill="none" stroke-linecap="round" opacity=".92">
+      <path d="M-20 196 C 150 150 260 192 400 158 S 660 120 820 158 S 1060 176 1230 132" stroke-width="8"/>
+      <path d="M170 176 C 200 140 214 120 206 92" stroke-width="4"/>
+      <path d="M470 150 C 500 116 540 104 566 84" stroke-width="4"/>
+      <path d="M700 140 C 712 108 700 86 676 66" stroke-width="3.5"/>
+      <path d="M940 164 C 980 132 1010 124 1046 104" stroke-width="4"/>
+      <path d="M1080 150 C 1096 120 1120 108 1150 100" stroke-width="3"/>
+    </g>
+
+    <!-- 꽃 -->
+    <g fill="#FDECF1">
+      <use href="#bl" x="40" y="180" transform="scale(1.5) translate(-13 -60)"/>
+      <use href="#bl" x="110" y="168"/>
+      <use href="#bl" x="150" y="186" transform="scale(1.3) translate(-35 -43)"/>
+      <use href="#bl" x="206" y="92"/>
+      <use href="#bl" x="222" y="112" transform="scale(1.2) translate(-37 -19)"/>
+      <use href="#bl" x="268" y="178"/>
+      <use href="#bl" x="330" y="172" transform="scale(1.4) translate(-94 -50)"/>
+      <use href="#bl" x="400" y="158"/>
+      <use href="#bl" x="566" y="84"/>
+      <use href="#bl" x="540" y="104" transform="scale(1.25) translate(-108 -21)"/>
+      <use href="#bl" x="600" y="140"/>
+      <use href="#bl" x="676" y="66"/>
+      <use href="#bl" x="694" y="92" transform="scale(1.15) translate(-90 -12)"/>
+      <use href="#bl" x="760" y="148" transform="scale(1.45) translate(-236 -46)"/>
+      <use href="#bl" x="830" y="160"/>
+      <use href="#bl" x="900" y="172" transform="scale(1.3) translate(-208 -40)"/>
+      <use href="#bl" x="1046" y="104"/>
+      <use href="#bl" x="1010" y="126" transform="scale(1.2) translate(-168 -21)"/>
+      <use href="#bl" x="1100" y="160" transform="scale(1.5) translate(-367 -53)"/>
+      <use href="#bl" x="1150" y="100"/>
+      <use href="#bl" x="1180" y="150"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+/* 꽃잎 흩날리기 (장식 전용) */
+(function () {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var box = document.getElementById('petals');
+  var frag = document.createDocumentFragment();
+
+  // 멀리(far) 18장 · 보통 12장 · 코앞에서 흐릿하게 스치는(near) 5장
+  var TIERS = [
+    { cls: 'far',  count: 18, dur: [13, 9], opacity: [0.35, 0.3] },
+    { cls: '',     count: 12, dur: [9, 7],  opacity: [0.6, 0.35] },
+    { cls: 'near', count: 5,  dur: [5, 4],  opacity: [0.5, 0.3] }
+  ];
+
+  for (var t = 0; t < TIERS.length; t++) {
+    var tier = TIERS[t];
+    for (var i = 0; i < tier.count; i++) {
+      var wrap = document.createElement('span');
+      wrap.className = 'petal-fall' + (tier.cls ? ' ' + tier.cls : '');
+      wrap.style.left = (Math.random() * 104 - 2).toFixed(1) + '%';
+      wrap.style.animationDuration = (tier.dur[0] + Math.random() * tier.dur[1]).toFixed(1) + 's';
+      wrap.style.animationDelay = '-' + (Math.random() * 22).toFixed(1) + 's';
+
+      var petal = document.createElement('span');
+      petal.className = 'petal';
+      petal.style.animationDuration = (2.2 + Math.random() * 3).toFixed(1) + 's';
+      petal.style.animationDelay = '-' + (Math.random() * 4).toFixed(1) + 's';
+      petal.style.opacity = (tier.opacity[0] + Math.random() * tier.opacity[1]).toFixed(2);
+
+      wrap.appendChild(petal);
+      frag.appendChild(wrap);
+    }
+  }
+  box.appendChild(frag);
+})();
+</script>
 
 <script>
 (function () {
