@@ -2,8 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>여행 준비 체크리스트</title>
+<!-- 휴대폰 홈 화면에 앱처럼 설치 -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#BFCFE6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="여행 체크">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
   :root{
     --sakura:#E88FA9;        /* 벚꽃 분홍 */
@@ -34,7 +43,11 @@
   button,input,select{font-family:inherit;font-size:inherit;color:inherit;}
   button{cursor:pointer;border:none;background:none;}
 
-  .app{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:34px 16px 230px;}
+  .app{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:34px 16px 230px;
+    /* 아이폰 노치·홈 바에 가리지 않게 */
+    padding-top:calc(34px + env(safe-area-inset-top));
+    padding-left:calc(16px + env(safe-area-inset-left));
+    padding-right:calc(16px + env(safe-area-inset-right));}
 
   /* 헤더 */
   .eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:4px;
@@ -861,6 +874,13 @@
   render();
   el.textInput.focus();
 })();
+</script>
+
+<script>
+/* 오프라인에서도 열리도록 서비스 워커 등록 (https 주소에서만 동작) */
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  navigator.serviceWorker.register('sw.js').catch(function () {});
+}
 </script>
 
 </body>
